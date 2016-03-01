@@ -17,7 +17,7 @@
  ~  under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.wso2.carbon.connector</groupId>
@@ -28,7 +28,6 @@
     <url>http://wso2.org</url>
     <properties>
         <connector.name>iso8583</connector.name>
-        <connector.version>1.0.0</connector.version>
         <esb.version>4.9.0</esb.version>
         <carbon.mediation.version>4.4.10</carbon.mediation.version>
         <org.jpos.version>1.9.4</org.jpos.version>
@@ -104,7 +103,7 @@
                             <goal>attached</goal>
                         </goals>
                         <configuration>
-                            <finalName>${connector.name}-connector-${connector.version}</finalName>
+                            <finalName>${connector.name}-connector-${version}</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                             <filters>
                                 <filter>src/main/assembly/filter.properties</filter>
@@ -127,9 +126,6 @@
                     <testFailureIgnore>true</testFailureIgnore>
                     <disableXmlReport>false</disableXmlReport>
                     <parallel>false</parallel>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
                     <systemProperties>
                         <property>
                             <name>framework.resource.location</name>
@@ -154,10 +150,6 @@
                         <carbon.zip>
                             ${basedir}/repository/wso2esb-${esb.version}.zip
                         </carbon.zip>
-                        <emma.home>${basedir}/target/emma</emma.home>
-                        <instr.file>${basedir}/src/test/resources/instrumentation.txt</instr.file>
-                        <filters.file>${basedir}/src/test/resources/filters.txt</filters.file>
-                        <emma.output>${basedir}/target/emma</emma.output>
                         <property>
                             <name>connector_repo</name>
                             <value>${basedir}/target</value>

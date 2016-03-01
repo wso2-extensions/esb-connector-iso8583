@@ -17,11 +17,11 @@
   ~ under the License.
   -->
 <component name="ISO8583_produceMessage" type="synapse/template">
-<subComponents>
-	<component name="sendMessage">
-		<file>sendMessage.xml</file>
-		<description>sendMessage (ISO8583 Message) method for ISO8583 Connector.
-		</description>
-	</component>
-</subComponents>
+    <subComponents>
+        <component name="sendMessage">
+            <file>sendMessage.xml</file>
+            <description>sendMessage (ISO8583 Message) method for ISO8583 Connector.
+            </description>
+        </component>
+    </subComponents>
 </component>

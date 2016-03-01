@@ -18,6 +18,8 @@
   -->
 <template xmlns="http://ws.apache.org/ns/synapse" name="sendMessage">
     <sequence>
-        <class name="org.wso2.carbon.connector.ISO8583.ISO8583MessageProducer" />
+        <class name="org.wso2.carbon.connector.ISO8583.ISO8583MessageProducer"/>
     </sequence>
 </template>
+
+

@@ -15,6 +15,7 @@
  */
 
 package org.wso2.carbon.connector.ISO8583;
+
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.OMFactory;
@@ -25,38 +26,48 @@ import org.apache.synapse.SynapseException;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOPackager;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class ISO8583MessageHandler  {
+public class ISO8583MessageHandler {
     private static final Log log = LogFactory.getLog(ISO8583MessageHandler.class);
-    public ISO8583MessageHandler(MessageContext messageContext,String details,String host, int port) {
+
+    public ISO8583MessageHandler(MessageContext messageContext, String details, String host, int port) {
         try {
-            Socket socket = new Socket(host,port);
-            clientHandler(messageContext,socket,details);
+            Socket socket = new Socket(host, port);
+            clientHandler(messageContext, socket, details);
         } catch (IOException e) {
-            handleException ("Couldn't create Socket" , e);
+            handleException("Couldn't create Socket", e);
         }
     }
-    public void clientHandler(MessageContext messageContext,Socket connection,String isoMessage) {
+
+    /**
+     * handle the iso8583 message request and responses
+     *
+     * @param isoMessage  packed ISOMessage
+     * @param connection  Socket connection with backend Test server
+     * @param messageContext the message context
+     */
+    public void clientHandler(MessageContext messageContext, Socket connection, String isoMessage) {
         DataOutputStream outStream = null;
         BufferedReader inFromServer = null;
         String message;
         try {
             outStream = new DataOutputStream(connection.getOutputStream());
             inFromServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                if (connection.isConnected()) {
-                    outStream.writeUTF(isoMessage);
-                    outStream.flush();
+            if (connection.isConnected()) {
+                outStream.writeUTF(isoMessage);
+                outStream.flush();
 
                 /* Sender will receive the Acknowledgement here */
-                    if ((message = inFromServer.readLine())!= null) {
-                        unpackResponse(messageContext,message);
-                    }
+                if ((message = inFromServer.readLine()) != null) {
+                    unpackResponse(messageContext, message);
                 }
+            }
         } catch (IOException e) {
             handleException("An exception occurred in sending the ISO8583 message", e);
         } finally {
@@ -74,19 +85,31 @@ public class ISO8583MessageHandler  {
         }
     }
 
-    public void unpackResponse(MessageContext messageContext,String message) {
+    /**
+     * unpack the response string of isoMessage
+     *
+     * @param message  response String of isoMessage
+     * @param messageContext the message context
+     */
+    public void unpackResponse(MessageContext messageContext, String message) {
         try {
             ISOPackager packager = ISO8583PackagerFactory.getPackager();
             ISOMsg isoMsg = new ISOMsg();
             isoMsg.setPackager(packager);
             isoMsg.unpack(message.getBytes());
-            messageBuilder(messageContext,isoMsg);
+            messageBuilder(messageContext, isoMsg);
         } catch (ISOException e) {
-            handleException("Couldn't unpack the message since message is not in ISO Standard :" + message ,e);
+            handleException("Couldn't unpack the message since message is not in ISO Standard :" + message, e);
         }
     }
 
-    public void messageBuilder(MessageContext messageContext,ISOMsg isomsg) {
+    /**
+     * Build the response message in xml format and set to message context
+     *
+     * @param isomsg  response fields  of isoMessage
+     * @param messageContext the message context
+     */
+    public void messageBuilder(MessageContext messageContext, ISOMsg isomsg) {
         OMFactory OMfactory = OMAbstractFactory.getOMFactory();
         OMElement parentElement = OMfactory.createOMElement(ISO8583Constant.TAG_MSG, null);
         OMElement result = OMfactory.createOMElement(ISO8583Constant.TAG_DATA, null);

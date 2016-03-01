@@ -16,6 +16,9 @@
 
 package org.wso2.carbon.connector.ISO8583;
 
+/**
+ * Class ISO8583Constants defines all constants used for ISO8583 Connector.
+ */
 public class ISO8583Constant {
     public final static String TAG_FIELD = "field";
     public final static String TAG_DATA = "data";

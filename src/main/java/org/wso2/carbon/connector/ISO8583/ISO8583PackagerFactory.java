@@ -15,14 +15,18 @@
  */
 
 package org.wso2.carbon.connector.ISO8583;
+
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOPackager;
 import org.jpos.iso.packager.GenericPackager;
 
 public class ISO8583PackagerFactory {
-	public static ISOPackager getPackager() throws ISOException {
-		ISOPackager packager;
-		packager = new GenericPackager(ISO8583Constant.PACKAGER);
-		return packager;
-	}
+    /**
+     * get the ISO Packager
+     */
+    public static ISOPackager getPackager() throws ISOException {
+        ISOPackager packager;
+        packager = new GenericPackager(ISO8583Constant.PACKAGER);
+        return packager;
+    }
 }

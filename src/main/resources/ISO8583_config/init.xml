@@ -17,13 +17,16 @@
   ~ under the License.
   -->
 <template name="init" xmlns="http://ws.apache.org/ns/synapse">
-  <parameter name="serverHost" description="localhost refers to the local computer that a program is running on" />
-  <parameter name="serverPort"
-             description="Connector sends the message to the server which is listen on the define port" />
-  <sequence>
-    <property expression="$func:serverHost" name="uri.var.serverHost"
-              scope="default" type="STRING"/>
-    <property expression="$func:serverPort" name="uri.var.serverPort"
-              scope="default" type="STRING"/>
-  </sequence>
+    <parameter name="serverHost" description="localhost refers to the local computer that a program is running on"/>
+    <parameter name="serverPort"
+               description="Connector sends the message to the server which is listen on the define port"/>
+    <sequence>
+        <property expression="$func:serverHost" name="uri.var.serverHost"
+                  scope="default" type="STRING"/>
+        <property expression="$func:serverPort" name="uri.var.serverPort"
+                  scope="default" type="STRING"/>
+    </sequence>
 </template>
+
+
+

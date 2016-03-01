@@ -23,21 +23,34 @@ import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOPackager;
 import org.wso2.carbon.connector.core.AbstractConnector;
 import org.wso2.carbon.connector.core.ConnectException;
+
 import javax.xml.namespace.QName;
 import java.util.Iterator;
 
 public class ISO8583MessageProducer extends AbstractConnector {
     @Override
+    /**
+     *  get host and port from messageContext
+     *
+     * @param messageContext the message context
+     */
     public void connect(MessageContext messageContext) throws ConnectException {
         try {
-            String host = (String)messageContext.getProperty(ISO8583Constant.HOST);
-            int  port = Integer.parseInt((String) messageContext.getProperty(ISO8583Constant.PORT));
+            String host = (String) messageContext.getProperty(ISO8583Constant.HOST);
+            int port = Integer.parseInt((String) messageContext.getProperty(ISO8583Constant.PORT));
             packedISO8583Message(messageContext, host, port);
         } catch (NumberFormatException e) {
             handleException("The port number does not contain a parsable integer", e, messageContext);
         }
     }
-    public void packedISO8583Message(MessageContext msgContext,String host,int port) {
+
+    /**
+     * packed the fields to get String of isoMessage
+     * @param host  the localhost
+     * @param port  5010
+     * @param msgContext the message context
+     */
+    public void packedISO8583Message(MessageContext msgContext, String host, int port) {
         try {
             ISOPackager packager = ISO8583PackagerFactory.getPackager();
             SOAPEnvelope soapEnvelope = msgContext.getEnvelope();
@@ -51,22 +64,30 @@ public class ISO8583MessageProducer extends AbstractConnector {
                 String getValue = element.getText();
                 try {
                     int fieldID = Integer.parseInt(element.getAttribute(
-                                new QName(ISO8583Constant.TAG_ID)).getAttributeValue());
+                            new QName(ISO8583Constant.TAG_ID)).getAttributeValue());
                     isoMsg.set(fieldID, getValue);
                 } catch (NumberFormatException e) {
-                    /*Need to consider all the fields*/
                     log.error("The fieldID does not contain a parsable integer" + e.getMessage(), e);
                 }
             }
             byte[] data = isoMsg.pack();
             String packedMessage = new String(data).toUpperCase();
-            sendMessage(msgContext,packedMessage,host,port);
-        } catch(ISOException e) {
+            handleMessage(msgContext, packedMessage, host, port);
+        } catch (ISOException e) {
             handleException("Couldn't packed ISO8583 Messages", e, msgContext);
         }
     }
 
-    public void sendMessage(MessageContext msgContext,String isoMessage, String host, int port) {
-        new ISO8583MessageHandler(msgContext,isoMessage, host, port);
+    /**
+     * handle the isoMessage with Test Server
+     *
+     * @param isoMessage String of packed Message
+     * @param host  the localhost
+     * @param port  establish connection with port 5010
+     * @param msgContext the message context
+     */
+
+    public void handleMessage(MessageContext msgContext, String isoMessage, String host, int port) {
+        new ISO8583MessageHandler(msgContext, isoMessage, host, port);
     }
 }

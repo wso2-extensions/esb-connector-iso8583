@@ -17,10 +17,10 @@
   ~ under the License.
   -->
 <component name="ISO8583_config" type="synapse/template">
-<subComponents>
-      <component name="init">
+    <subComponents>
+        <component name="init">
             <file>init.xml</file>
             <description>configure ISO8583 connector.</description>
-      </component>
-</subComponents>
+        </component>
+    </subComponents>
 </component>
