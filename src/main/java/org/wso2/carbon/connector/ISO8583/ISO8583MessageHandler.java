@@ -33,9 +33,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+
 public class ISO8583MessageHandler {
     private static final Log log = LogFactory.getLog(ISO8583MessageHandler.class);
-
+    /**
+     * class for handling the iso message request and responses
+     *
+     * @param details  packed ISOMessage
+     * @param host  the localhost
+     * @param port  establish connection with port 5010
+     * @param messageContext the message context
+     */
     public ISO8583MessageHandler(MessageContext messageContext, String details, String host, int port) {
         try {
             Socket socket = new Socket(host, port);
@@ -126,6 +134,12 @@ public class ISO8583MessageHandler {
         }
     }
 
+    /**
+     * handle the Exception
+     *
+     * @param  msg error message
+     * @param ex an Exception
+     */
     private void handleException(String msg, Exception ex) {
         log.error(msg, ex);
         throw new SynapseException(ex);
