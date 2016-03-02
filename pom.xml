@@ -23,7 +23,7 @@
     <groupId>org.wso2.carbon.connector</groupId>
     <artifactId>org.wso2.carbon.connector.ISO8583</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>WSO2 Carbon - Mediation Library Connector For ISO8583</name>
     <url>http://wso2.org</url>
     <properties>
@@ -56,6 +56,12 @@
             <version>${org.jdom.version}</version>
         </dependency>
     </dependencies>
+    <scm>
+        <connection>scm:git:https://github.com/wso2-extensions/esb-connector-iso8583.git</connection>
+        <url>https://github.com/wso2-extensions/esb-connector-iso8583.git</url>
+        <developerConnection>scm:git:https://github.com/wso2-extensions/esb-connector-iso8583</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
     <build>
         <plugins>
             <plugin>
