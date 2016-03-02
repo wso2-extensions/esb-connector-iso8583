@@ -27,13 +27,11 @@ import org.wso2.carbon.connector.core.ConnectException;
 import javax.xml.namespace.QName;
 import java.util.Iterator;
 
+/**
+ * Class for get host, port and iso fields from messageContext
+ */
 public class ISO8583MessageProducer extends AbstractConnector {
     @Override
-    /**
-     *  get host and port from messageContext
-     *
-     * @param messageContext the message context
-     */
     public void connect(MessageContext messageContext) throws ConnectException {
         try {
             String host = (String) messageContext.getProperty(ISO8583Constant.HOST);
