@@ -21,5 +21,6 @@
         <dependency component="ISO8583_config"/>
         <dependency component="ISO8583_produceMessage"/>
         <description>wso2 connector library for ISO8583</description>
+        <icon>icon/icon-small.gif</icon>
     </component>
 </connector>
