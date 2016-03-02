@@ -70,22 +70,9 @@ public class ISO8583MessageProducer extends AbstractConnector {
             }
             byte[] data = isoMsg.pack();
             String packedMessage = new String(data).toUpperCase();
-            handleMessage(msgContext, packedMessage, host, port);
+            new ISO8583MessageHandler(msgContext, packedMessage, host, port);
         } catch (ISOException e) {
             handleException("Couldn't packed ISO8583 Messages", e, msgContext);
         }
-    }
-
-    /**
-     * handle the isoMessage with Test Server
-     *
-     * @param isoMessage String of packed Message
-     * @param host  the localhost
-     * @param port  establish connection with port 5010
-     * @param msgContext the message context
-     */
-
-    public void handleMessage(MessageContext msgContext, String isoMessage, String host, int port) {
-        new ISO8583MessageHandler(msgContext, isoMessage, host, port);
-    }
+    }   
 }
