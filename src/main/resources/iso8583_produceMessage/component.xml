@@ -16,7 +16,7 @@
   ~ specific language governing permissions and limitations
   ~ under the License.
   -->
-<component name="ISO8583_produceMessage" type="synapse/template">
+<component name="iso8583_produceMessage" type="synapse/template">
     <subComponents>
         <component name="sendMessage">
             <file>sendMessage.xml</file>

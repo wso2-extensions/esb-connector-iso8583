@@ -16,7 +16,7 @@
   ~ specific language governing permissions and limitations
   ~ under the License.
   -->
-<component name="ISO8583_config" type="synapse/template">
+<component name="iso8583_config" type="synapse/template">
     <subComponents>
         <component name="init">
             <file>init.xml</file>
