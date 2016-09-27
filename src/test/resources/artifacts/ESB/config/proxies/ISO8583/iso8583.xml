@@ -24,11 +24,11 @@
        startOnLoad="true">
     <target>
         <inSequence>
-            <ISO8583.init>
+            <iso8583.init>
                 <serverHost>localhost</serverHost>
                 <serverPort>5010</serverPort>
-            </ISO8583.init>
-            <ISO8583.sendMessage/>
+            </iso8583.init>
+            <iso8583.sendMessage/>
             <log level="full"/>
             <respond/>
         </inSequence>
