@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.wso2.carbon.connector.ISO8583;
+package org.wso2.carbon.connector.iso8583;
 
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOPackager;
