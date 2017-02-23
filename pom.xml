@@ -17,10 +17,11 @@
  ~  under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.wso2.carbon.connector</groupId>
-    <artifactId>org.wso2.carbon.connector.ISO8583</artifactId>
+    <artifactId>org.wso2.carbon.connector.iso8583</artifactId>
     <packaging>jar</packaging>
     <version>1.0.2-SNAPSHOT</version>
     <name>WSO2 Carbon - Mediation Library Connector For ISO8583</name>
@@ -29,7 +30,7 @@
         <connector.name>iso8583</connector.name>
         <esb.version>4.9.0</esb.version>
         <carbon.mediation.version>4.4.10</carbon.mediation.version>
-        <org.jpos.version>1.9.4</org.jpos.version>
+        <org.jpos.version>1.9.6</org.jpos.version>
         <commons-cli.version>1.3.1</commons-cli.version>
         <org.jdom.version>1.1.3</org.jdom.version>
     </properties>

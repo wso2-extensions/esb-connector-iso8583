@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.wso2.carbon.connector.ISO8583;
+package org.wso2.carbon.connector.iso8583;
 
 /**
- * Class ISO8583Constants defines all constants used for ISO8583 Connector.
+ * Class ISO8583Constants defines all constants used for iso8583 Connector.
  */
 public class ISO8583Constant {
     public final static String TAG_FIELD = "field";

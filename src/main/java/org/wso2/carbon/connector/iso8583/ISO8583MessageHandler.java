@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.wso2.carbon.connector.ISO8583;
+package org.wso2.carbon.connector.iso8583;
 
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
@@ -35,6 +35,7 @@ import java.net.Socket;
 
 /**
  * Class for handling the iso message request and responses.
+ * @since 1.0.2
  */
 public class ISO8583MessageHandler {
     private static final Log log = LogFactory.getLog(ISO8583MessageHandler.class);
@@ -72,7 +73,7 @@ public class ISO8583MessageHandler {
                 }
             }
         } catch (IOException e) {
-            handleException("An exception occurred in sending the ISO8583 message", e);
+            handleException("An exception occurred in sending the iso8583 message", e);
         } finally {
             try {
                 if (outStream != null) {

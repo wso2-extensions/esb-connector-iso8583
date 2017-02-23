@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wso2.carbon.connector.ISO8583;
+package org.wso2.carbon.connector.iso8583;
 
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.soap.SOAPEnvelope;
@@ -29,6 +29,7 @@ import java.util.Iterator;
 
 /**
  * Class for get host, port and iso fields from messageContext
+ * @since 1.0.2
  */
 public class ISO8583MessageProducer extends AbstractConnector {
     @Override
@@ -72,7 +73,7 @@ public class ISO8583MessageProducer extends AbstractConnector {
             String packedMessage = new String(data).toUpperCase();
             new ISO8583MessageHandler(msgContext, packedMessage, host, port);
         } catch (ISOException e) {
-            handleException("Couldn't packed ISO8583 Messages", e, msgContext);
+            handleException("Couldn't packed iso8583 Messages", e, msgContext);
         }
     }   
 }
