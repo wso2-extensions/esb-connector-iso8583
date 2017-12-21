@@ -56,6 +56,9 @@ public class ISO8583MessageProducer extends AbstractConnector {
             OMElement getElements = soapEnvelope.getBody().getFirstElement();
             ISOMsg isoMsg = new ISOMsg();
             isoMsg.setPackager(packager);
+            String header = getElements.getFirstChildWithName(
+                    new QName(ISO8583Constant.HEADER)).getText();
+            isoMsg.setHeader(header.getBytes());
             Iterator fields = getElements.getFirstChildWithName(
                     new QName(ISO8583Constant.TAG_DATA)).getChildrenWithLocalName(ISO8583Constant.TAG_FIELD);
             while (fields.hasNext()) {

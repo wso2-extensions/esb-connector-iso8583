@@ -116,6 +116,9 @@ public class ISO8583MessageHandler {
     public void messageBuilder(MessageContext messageContext, ISOMsg isomsg) {
         OMFactory OMfactory = OMAbstractFactory.getOMFactory();
         OMElement parentElement = OMfactory.createOMElement(ISO8583Constant.TAG_MSG, null);
+        OMElement header = OMfactory.createOMElement(ISO8583Constant.HEADER, null);
+        header.setText(new String(isomsg.getHeader()));
+        parentElement.addChild(header);
         OMElement result = OMfactory.createOMElement(ISO8583Constant.TAG_DATA, null);
         for (int i = 0; i <= isomsg.getMaxField(); i++) {
             if (isomsg.hasField(i)) {
