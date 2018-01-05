@@ -25,6 +25,7 @@ import org.wso2.carbon.connector.core.AbstractConnector;
 import org.wso2.carbon.connector.core.ConnectException;
 
 import javax.xml.namespace.QName;
+import java.util.Base64;
 import java.util.Iterator;
 
 /**
@@ -51,14 +52,16 @@ public class ISO8583MessageProducer extends AbstractConnector {
      */
     public void packedISO8583Message(MessageContext msgContext, String host, int port) {
         try {
-            ISOPackager packager = ISO8583PackagerFactory.getPackager();
             SOAPEnvelope soapEnvelope = msgContext.getEnvelope();
             OMElement getElements = soapEnvelope.getBody().getFirstElement();
             ISOMsg isoMsg = new ISOMsg();
-            isoMsg.setPackager(packager);
-            String header = getElements.getFirstChildWithName(
-                    new QName(ISO8583Constant.HEADER)).getText();
-            isoMsg.setHeader(header.getBytes());
+            int headerLength = 0;
+            OMElement header = getElements.getFirstChildWithName(new QName(ISO8583Constant.HEADER));
+            if (header != null) {
+                isoMsg.setHeader(Base64.getDecoder().decode(header.getText()));
+                headerLength = (Base64.getDecoder().decode(header.getText())).length;
+            }
+            isoMsg.setPackager(ISO8583PackagerFactory.getPackager(headerLength));
             Iterator fields = getElements.getFirstChildWithName(
                     new QName(ISO8583Constant.TAG_DATA)).getChildrenWithLocalName(ISO8583Constant.TAG_FIELD);
             while (fields.hasNext()) {
