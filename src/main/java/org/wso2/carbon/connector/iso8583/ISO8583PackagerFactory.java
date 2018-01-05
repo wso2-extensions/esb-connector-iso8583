@@ -22,7 +22,6 @@ import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOPackager;
 import org.jpos.iso.packager.GenericPackager;
 
-
 public class ISO8583PackagerFactory {
     /**
      * get the ISO Packager
@@ -33,6 +32,9 @@ public class ISO8583PackagerFactory {
         return packager;
     }
 
+    /**
+     * get the ISO Packager for given HeaderLength
+     */
     public static ISOBasePackager getPackager(int headerLength) {
         ISOBasePackager packager = null;
         try {
