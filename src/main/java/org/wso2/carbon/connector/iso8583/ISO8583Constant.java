@@ -22,6 +22,7 @@ package org.wso2.carbon.connector.iso8583;
 public class ISO8583Constant {
     public final static String TAG_FIELD = "field";
     public final static String TAG_DATA = "data";
+    public final static String HEADER = "header";
     public final static String TAG_ID = "id";
     public final static String PORT = "uri.var.serverPort";
     public final static String HOST = "uri.var.serverHost";

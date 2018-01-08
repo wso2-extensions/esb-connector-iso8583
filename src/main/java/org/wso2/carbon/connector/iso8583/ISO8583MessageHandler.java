@@ -19,6 +19,7 @@ package org.wso2.carbon.connector.iso8583;
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.OMFactory;
+import org.apache.axiom.soap.SOAPEnvelope;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.synapse.MessageContext;
@@ -32,6 +33,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Base64;
+import java.util.Iterator;
+import javax.xml.namespace.QName;
 
 /**
  * Class for handling the iso message request and responses.
@@ -97,7 +101,8 @@ public class ISO8583MessageHandler {
      */
     public void unpackResponse(MessageContext messageContext, String message) {
         try {
-            ISOPackager packager = ISO8583PackagerFactory.getPackager();
+            int headerLength = getHeaderLength(messageContext);
+            ISOPackager packager = ISO8583PackagerFactory.getPackager(headerLength);
             ISOMsg isoMsg = new ISOMsg();
             isoMsg.setPackager(packager);
             isoMsg.unpack(message.getBytes());
@@ -105,6 +110,16 @@ public class ISO8583MessageHandler {
         } catch (ISOException e) {
             handleException("Couldn't unpack the message since message is not in ISO Standard :" + message, e);
         }
+    }
+
+    private int getHeaderLength(MessageContext messageContext) {
+        int headerLength = 0;
+        SOAPEnvelope soapEnvelope = messageContext.getEnvelope();
+        OMElement getElements = soapEnvelope.getBody().getFirstElement();
+        OMElement header = getElements.getFirstChildWithName(new QName(ISO8583Constant.HEADER));
+        if (header != null)
+            headerLength = (Base64.getDecoder().decode(header.getText())).length;
+        return headerLength;
     }
 
     /**
@@ -116,6 +131,11 @@ public class ISO8583MessageHandler {
     public void messageBuilder(MessageContext messageContext, ISOMsg isomsg) {
         OMFactory OMfactory = OMAbstractFactory.getOMFactory();
         OMElement parentElement = OMfactory.createOMElement(ISO8583Constant.TAG_MSG, null);
+        if (isomsg.getHeader() != null) {
+            OMElement header = OMfactory.createOMElement(ISO8583Constant.HEADER, null);
+            header.setText(Base64.getEncoder().encodeToString(isomsg.getHeader()));
+            parentElement.addChild(header);
+        }
         OMElement result = OMfactory.createOMElement(ISO8583Constant.TAG_DATA, null);
         for (int i = 0; i <= isomsg.getMaxField(); i++) {
             if (isomsg.hasField(i)) {
