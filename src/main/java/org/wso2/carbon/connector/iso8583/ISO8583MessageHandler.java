@@ -29,6 +29,7 @@ import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOPackager;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -44,7 +45,7 @@ import javax.xml.namespace.QName;
 public class ISO8583MessageHandler {
     private static final Log log = LogFactory.getLog(ISO8583MessageHandler.class);
 
-    public ISO8583MessageHandler(MessageContext messageContext, String details, String host, int port) {
+    public ISO8583MessageHandler(MessageContext messageContext, byte[] details, String host, int port) {
         try {
             Socket socket = new Socket(host, port);
             clientHandler(messageContext, socket, details);
@@ -56,28 +57,31 @@ public class ISO8583MessageHandler {
     /**
      * handle the iso8583 message request and responses
      *
-     * @param isoMessage  packed ISOMessage
-     * @param connection  Socket connection with backend Test server
      * @param messageContext the message context
+     * @param connection  Socket connection with backend Test server
+     * @param isoMessage  packed ISOMessage
      */
-    public void clientHandler(MessageContext messageContext, Socket connection, String isoMessage) {
+    public void clientHandler(MessageContext messageContext, Socket connection, byte[] isoMessage) {
         DataOutputStream outStream = null;
-        BufferedReader inFromServer = null;
-        String message;
+        DataInputStream inFromServer = null;
         try {
             outStream = new DataOutputStream(connection.getOutputStream());
-            inFromServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            inFromServer = new DataInputStream(connection.getInputStream());
             if (connection.isConnected()) {
-                outStream.writeUTF(isoMessage);
+                outStream.write(isoMessage);
                 outStream.flush();
 
                 /* Sender will receive the Acknowledgement here */
-                if ((message = inFromServer.readLine()) != null) {
-                    unpackResponse(messageContext, message);
-                }
+                Thread.sleep(200);
+                int messageLength = inFromServer.available();
+                byte[] message = new byte[messageLength];
+                inFromServer.readFully(message, 0, messageLength);
+                unpackResponse(messageContext, message);
             }
         } catch (IOException e) {
             handleException("An exception occurred in sending the iso8583 message", e);
+        } catch (InterruptedException e) {
+            handleException("An exception occurred in reading the iso8583 message", e);
         } finally {
             try {
                 if (outStream != null) {
@@ -94,18 +98,18 @@ public class ISO8583MessageHandler {
     }
 
     /**
-     * unpack the response string of isoMessage
+     * unpack the response byte of isoMessage
      *
-     * @param message  response String of isoMessage
      * @param messageContext the message context
+     * @param message  response byte of isoMessage
      */
-    public void unpackResponse(MessageContext messageContext, String message) {
+    public void unpackResponse(MessageContext messageContext, byte[] message) {
         try {
             int headerLength = getHeaderLength(messageContext);
             ISOPackager packager = ISO8583PackagerFactory.getPackager(headerLength);
             ISOMsg isoMsg = new ISOMsg();
             isoMsg.setPackager(packager);
-            isoMsg.unpack(message.getBytes());
+            isoMsg.unpack(message);
             messageBuilder(messageContext, isoMsg);
         } catch (ISOException e) {
             handleException("Couldn't unpack the message since message is not in ISO Standard :" + message, e);
