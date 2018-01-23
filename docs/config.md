@@ -1,12 +1,18 @@
-# Configuring ISO8583 Connector Operation
+# Configuring the ISO8583 Connector
 
-ISO8583 connector allows you to send the ISO8583 standard messages through WSO2 ESB. ISO8583 is a message standard which is using in financial transactions. There are various versions in ISO8583 standard, Here the connector is developed based on 1987 version.
+### Prerequisites
 
-For more information about ISO8583 Standard, go to [ISO Documentation](http://www.iso.org/iso/home.html) and  [ISO8583 Documentation](https://en.wikipedia.org/wiki/ISO_8583) . WSO2 ESB ISO8583 connector sends ISO8583 Standard Messages to java Testserver .
+Download the following .jar files from the given locations and copy the files to the <EI_HOME>/lib directory.
 
-In order to use the ISO8583 connector, you need to download the jpos-1.9.4.jar from the http://mvnrepository.com/artifact/org.jpos/jpos/1.9.4 , download jdom-1.1.3.jar from http://mvnrepository.com/artifact/org.jdom/jdom/1.1.3 and download commons-cli-1.3.1.jar from http://mvnrepository.com/artifact/commons-cli/commons-cli/1.3.1. Then copy the jars to the <EI_HOME>/lib directory. The recommend EI version is 6.1.1 .
+* Download jpos-1.9.4.jar from [http://mvnrepository.com/artifact/org.jpos/jpos/1.9.4](http://mvnrepository.com/artifact/org.jpos/jpos/1.9.4). 
+* Download jdom-1.1.3.jar from [http://mvnrepository.com/artifact/org.jdom/jdom/1.1.3] (http://mvnrepository.com/artifact/org.jdom/jdom/1.1.3).
+* Download commons-cli-1.3.1.jar from [http://mvnrepository.com/artifact/commons-cli/commons-cli/1.3.1] (http://mvnrepository.com/artifact/commons-cli/commons-cli/1.3.1). 
 
-To use the ISO8583 connector, add the <iso8583.init> element in your configuration before connecting with Testserver.
+To use the ISO8583 connector, add the <iso8583.init> element in your configuration before carrying out any other operation.
+
+>> NOTE : For testing purposes, you need to have a test server (basically a java socket connection that listens on port 5010) to handle ISO8583 requests that come from the connector. You also need to generate responses by changing the relevant response fields, and then send the responses back to the connector.
+You can test the connector with the sample Java server program that is provided in the following git location: 
+https://github.com/wso2-docs/CONNECTORS/tree/master/ISO8583/ISO8583TestServer
 
 **init**
 ```xml
@@ -17,15 +23,16 @@ To use the ISO8583 connector, add the <iso8583.init> element in your configurati
 ```
 **Properties** 
 * serverHost: The host of the server.
-* serverPort: The port of the server (The server will start to listen on that port).
+* serverPort: The port on which the server can start listening for messages.
 
-Now you have connected to ISO8583 Connector and with any Testserver, by using the following information you can send the messages from connector.
+Now that you have connected to the ISO8583 connector, take a look at the information in the following sections to start working with ISO8583 messages using the connector.
 
-**Send an ISO8583 Messages**
+### Sending an ISO8583 message
 
-To send the messages, use </iso8583.sendMessage> operation and using Rest-client to send the xml format messages. In Rest-client set the header application/xml as Content-Type.
+To send an ISO8583 message, you need to use the <iso8583.sendMessage/> operation in your configuration.
+You can use a REST client to send an XML message, set the Content-Type header in the REST client as application/xml, and then POST the body in XML format. 
 
-POST the body in xml format and xml format message should be in the following structure.
+Messages that you send should be structured in the following XML format:
 
 ```xml
 <ISOMessage>
@@ -41,12 +48,14 @@ POST the body in xml format and xml format message should be in the following st
       </data>
 </ISOMessage>
 ```
->> NOTE : ISOMessage can have header information. It support 2-byte or 4-byte headers. 
-To add the header to ISOMessage, you need to convert the 2-byte or 4-byte header into string using base64 encoding and give that string value within the header tag in xml message.
+>> NOTE: You can include required header information within the header tag in <ISOMessage>. It supports 2-byte or 4-byte headers. 
+To include header information, you need to convert the 2-byte or 4-byte header into a string using base64 encoding, and then specify the string value within the header tag.
 
-# Sample configuration
+>> NOTE : If you use the sample Java server program at https://github.com/wso2-docs/CONNECTORS/tree/master/ISO8583/ISO8583TestServer to send an ISO8583 request with a header value from the connector, you need to update the iso87ascii.xml file with the relevant headerLength information.
 
-Following is a sample proxy service that illustrates how to connect to Testserver with the init operation to use the sendMessage operation. 
+## Sample configuration
+
+Following is a sample proxy service that illustrates how to connect to a test server with the init operation, and then use the sendMessage operation. 
 
 **Sample Proxy**
 ```xml
@@ -74,7 +83,5 @@ Following is a sample proxy service that illustrates how to connect to Testserve
    <description/>
 </proxy>               
 ```
->> NOTE : The jpos library is a third party library and jposdef.xml has the field definitions of standard ISO8583 messages. According to the field definitions, each ISO8583 message in XML format that comes from the Rest client will be packed and sent to the Testserver.
 
->> NOTE : For testing purposes, you need to have Java TestServer (which is a java socket connection that needs to listen on port 5010) to handle ISO8583 requests that come from the connector. Further, it needs to generate responses by changing the relevant response fields and sending the responses back to the connector.
-You can try the connector with the sample Java server program that is provided in https://github.com/wso2-docs/CONNECTORS/tree/master/ISO8583/ISO8583TestServer (If You send the ISO8583 request with header value from the connector, Update the iso87ascii.xml file with relevant headerLength in the sample Java server program).
+>> NOTE : The ISO8583 connector uses the jpos library, which is a third party library that provides a high-performance bridge between card messages generated at point of sale terminals, ATMs, and internal systems across the entire financial messaging network. The jposdef.xml file has the field definitions of standard ISO8583 messages. According to the field definitions, each ISO8583 message in XML format coming from the REST client is packed and sent to the test server.
