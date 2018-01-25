@@ -1,6 +1,6 @@
 # Configuring the ISO8583 Connector
 
-To configure the ISO8583 connector, download the following .jar files from the given locations and copy the files to the <EI_HOME>/lib directory.
+To configure the ISO8583 connector, download the following .jar files from the given locations and copy the files to the <EI_HOME>/lib directory:
 
 * Download jpos-1.9.4.jar from [http://mvnrepository.com/artifact/org.jpos/jpos/1.9.4](http://mvnrepository.com/artifact/org.jpos/jpos/1.9.4). 
 * Download jdom-1.1.3.jar from [http://mvnrepository.com/artifact/org.jdom/jdom/1.1.3](http://mvnrepository.com/artifact/org.jdom/jdom/1.1.3).
