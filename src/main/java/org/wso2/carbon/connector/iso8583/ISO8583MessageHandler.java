@@ -20,6 +20,7 @@ import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.OMFactory;
 import org.apache.axiom.soap.SOAPEnvelope;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.synapse.MessageContext;
@@ -28,14 +29,12 @@ import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOPackager;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Base64;
-import java.util.Iterator;
 import javax.xml.namespace.QName;
 
 /**
@@ -46,11 +45,21 @@ public class ISO8583MessageHandler {
     private static final Log log = LogFactory.getLog(ISO8583MessageHandler.class);
 
     public ISO8583MessageHandler(MessageContext messageContext, byte[] details, String host, int port) {
+        Socket socket = null;
         try {
-            Socket socket = new Socket(host, port);
+            socket = new Socket(host, port);
             clientHandler(messageContext, socket, details);
         } catch (IOException e) {
             handleException("Couldn't create Socket", e);
+        }
+        finally {
+            if (socket != null) {
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    log.error("Couldn't close the Socket", e);
+                }
+            }
         }
     }
 
@@ -72,16 +81,11 @@ public class ISO8583MessageHandler {
                 outStream.flush();
 
                 /* Sender will receive the Acknowledgement here */
-                Thread.sleep(200);
-                int messageLength = inFromServer.available();
-                byte[] message = new byte[messageLength];
-                inFromServer.readFully(message, 0, messageLength);
-                unpackResponse(messageContext, message);
+                byte[] message = IOUtils.toByteArray(inFromServer);
+                unpackResponse(messageContext,message);
             }
         } catch (IOException e) {
             handleException("An exception occurred in sending the iso8583 message", e);
-        } catch (InterruptedException e) {
-            handleException("An exception occurred in reading the iso8583 message", e);
         } finally {
             try {
                 if (outStream != null) {
@@ -90,7 +94,6 @@ public class ISO8583MessageHandler {
                 if (inFromServer != null) {
                     inFromServer.close();
                 }
-                connection.close();
             } catch (IOException e) {
                 log.error("Couldn't close the I/O Streams", e);
             }
@@ -112,7 +115,7 @@ public class ISO8583MessageHandler {
             isoMsg.unpack(message);
             messageBuilder(messageContext, isoMsg);
         } catch (ISOException e) {
-            handleException("Couldn't unpack the message since message is not in ISO Standard :" + message, e);
+            handleException("Couldn't unpack the message since message is not in ISO Standard :" + Arrays.toString(message), e);
         }
     }
 
