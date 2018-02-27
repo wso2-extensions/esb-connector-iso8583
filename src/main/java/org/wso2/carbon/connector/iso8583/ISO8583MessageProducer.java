@@ -20,7 +20,6 @@ import org.apache.axiom.soap.SOAPEnvelope;
 import org.apache.synapse.MessageContext;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
-import org.jpos.iso.ISOPackager;
 import org.wso2.carbon.connector.core.AbstractConnector;
 import org.wso2.carbon.connector.core.ConnectException;
 
@@ -76,8 +75,7 @@ public class ISO8583MessageProducer extends AbstractConnector {
                 }
             }
             byte[] data = isoMsg.pack();
-            String packedMessage = new String(data).toUpperCase();
-            new ISO8583MessageHandler(msgContext, packedMessage, host, port);
+            new ISO8583MessageHandler(msgContext, data, host, port);
         } catch (ISOException e) {
             handleException("Couldn't packed iso8583 Messages", e, msgContext);
         }
