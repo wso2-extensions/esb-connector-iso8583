@@ -17,7 +17,7 @@
   ~ under the License.
   -->
 <proxy xmlns="http://ws.apache.org/ns/synapse"
-       name="ISO8583_Test"
+       name="iso8583"
        transports="https,http"
        statistics="disable"
        trace="disable"
@@ -25,8 +25,8 @@
     <target>
         <inSequence>
             <iso8583.init>
-                <serverHost>localhost</serverHost>
-                <serverPort>5010</serverPort>
+                <serverHost>{$url:serverHost}</serverHost>
+                <serverPort>{$url:serverPort}</serverPort>
             </iso8583.init>
             <iso8583.sendMessage/>
             <log level="full"/>
