@@ -23,7 +23,7 @@
     <groupId>org.wso2.carbon.connector</groupId>
     <artifactId>org.wso2.carbon.connector.iso8583</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.3</version>
     <name>WSO2 Carbon - Mediation Library Connector For ISO8583</name>
     <url>http://wso2.org</url>
     <properties>
@@ -37,7 +37,7 @@
         <emma.version>2.1.5320</emma.version>
         <carbon.kernel.version>4.4.17</carbon.kernel.version>
         <automation.framework.utils.version>4.4.2</automation.framework.utils.version>
-        <product.ei.version>6.5.0-m4</product.ei.version>
+        <product.ei.version>6.5.0</product.ei.version>
         <synapse.version>2.1.7-wso2v95</synapse.version>
         <skip-tests>true</skip-tests>
     </properties>

@@ -8,19 +8,19 @@ Pre-requisites:
 Tested Platform: 
 
  - Ubuntu 14.04
- - WSO2 EI 6.4.0
+ - WSO2 EI 6.5.0
  - Java 1.8
 
 Steps to follow in setting integration test.
 
- 1. Download EI 6.4.0 from the official website
+ 1. Download EI 6.5.0 from the official website
 
  2. Download the jpos-1.9.4.jar from the http://mvnrepository.com/artifact/org.jpos/jpos/1.9.4 ,<br/>
     download jdom-1.1.3.jar from http://mvnrepository.com/artifact/org.jdom/jdom/1.1.3 and <br/>
     download commons-cli-1.3.1.jar from http://mvnrepository.com/artifact/commons-cli/commons-cli/1.3 and <br/> then copy the
     jars to the <ESB_HOME>/repository/components/lib or <EI_HOME>/lib directory.
 
- 3. Compress modified EI as wso2ei-6.4.0.zip and copy that zip file in to location "{ISO8583_CONNECTOR_HOME}/repository/".
+ 3. Compress modified EI as wso2ei-6.5.0.zip and copy that zip file in to location "{ISO8583_CONNECTOR_HOME}/repository/".
 
  4. Obtain the Sample test server from https://github.com/wso2-docs/CONNECTORS/tree/master/ISO8583/ISO8583TestServer.
 
