@@ -9,5 +9,14 @@
         "Other",
         "Technology"
     ],
-    "releases": []
+    "releases": [
+        {
+            "tagName": "1.0.2",
+            "products": []
+        },
+        {
+            "tagName": "1.0.1",
+            "products": []
+        }
+    ]
 }
