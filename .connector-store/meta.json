@@ -6,8 +6,17 @@
     "description": "ISO8583 connector allows you to send the ISO8583 standard messages through WSO2 ESB. ISO8583 is a message standard which is using in financial transactions. There are various versions in ISO8583 standard, Here the connector is developed based on 1987 version.",
     "status": "Active",
     "labels": [
-        "Other",
-        "Technology"
+        "ISO"
     ],
-    "releases": []
+    "releases": [
+        {
+            "tagName": "v1.0.3",
+            "products": [
+                "EI 7.0.x",
+                "EI 6.6.0",
+                "EI 6.5.0"
+            ],
+            "isHidden": false
+        }
+    ]
 }
