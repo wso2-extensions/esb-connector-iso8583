@@ -11,11 +11,7 @@
     "releases": [
         {
             "tagName": "org.wso2.carbon.connector.iso8583-1.0.3",
-            "products": [
-                "EI 7.0.x",
-                "EI 6.6.0",
-                "EI 6.5.0"
-            ],
+            "products": [],
             "isHidden": false
         }
     ]
