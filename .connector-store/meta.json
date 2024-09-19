@@ -2,7 +2,7 @@
     "name": "ISO8583",
     "owner": "WSO2",
     "category": "Other",
-    "documentationUrl": "https://ei.docs.wso2.com/en/latest/micro-integrator/references/connectors/ISO8583-connector/ISO8583-connector-overview/",
+    "documentationUrl": "https://mi.docs.wso2.com/en/latest/reference/connectors/iso8583-connector/iso8583-connector-overview/",
     "description": "ISO8583 connector allows you to send the ISO8583 standard messages through WSO2 ESB. ISO8583 is a message standard which is using in financial transactions. There are various versions in ISO8583 standard, Here the connector is developed based on 1987 version.",
     "status": "Active",
     "labels": [
@@ -12,9 +12,6 @@
         {
             "tagName": "org.wso2.carbon.connector.iso8583-1.0.3",
             "products": [
-                "EI 7.0.x",
-                "EI 6.6.0",
-                "EI 6.5.0",
                 "MI 4.x.x"
             ],
             "isHidden": false
