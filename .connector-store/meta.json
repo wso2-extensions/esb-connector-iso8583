@@ -1,22 +1,40 @@
 {
     "name": "ISO8583",
     "owner": "WSO2",
+    "product": "MI",
     "category": "Developer Tools",
     "documentationUrl": "https://mi.docs.wso2.com/en/latest/reference/connectors/iso8583-connector/iso8583-connector-overview/",
+    "mavenGroupId": "org.wso2.carbon.connector",
+    "mavenArtifactId": "org.wso2.carbon.connector.iso8583",
     "description": "ISO8583 connector allows you to send the ISO8583 standard messages through WSO2 MI. ISO8583 is a message standard which is using in financial transactions. There are various versions in ISO8583 standard, Here the connector is developed based on 1987 version.",
     "status": "Active",
+    "connectorRank": 14,
+    "type": "Connector",
     "labels": [
         "payments"
     ],
     "releases": [
         {
-            "tagName": "org.wso2.carbon.connector.iso8583-1.0.3",
+            "tagName": "v1.0.3",
             "products": [
                 "MI 4.3.0",
                 "MI 4.2.0",
                 "MI 4.1.0",
                 "MI 4.0.0"
             ],
+            "operations": [
+                {
+                    "name": "init",
+                    "description": "configure ISO8583 connector.",
+                    "isHidden": false
+                },
+                {
+                    "name": "sendMessage",
+                    "description": "sendMessage (ISO8583 Message) method for ISO8583 Connector.",
+                    "isHidden": false
+                }
+            ],
+            "connections": [],
             "isHidden": false
         }
     ]
