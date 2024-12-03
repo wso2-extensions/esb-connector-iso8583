@@ -8,7 +8,7 @@
     "mavenArtifactId": "org.wso2.carbon.connector.iso8583",
     "description": "ISO8583 connector allows you to send the ISO8583 standard messages through WSO2 MI. ISO8583 is a message standard which is using in financial transactions. There are various versions in ISO8583 standard, Here the connector is developed based on 1987 version.",
     "status": "Active",
-    "connectorRank": 14,
+    "rank": 14,
     "type": "Connector",
     "labels": [
         "payments"
@@ -34,7 +34,12 @@
                     "isHidden": false
                 }
             ],
-            "connections": [],
+            "connections": [
+                {
+                    "name": "iso8583",
+                    "description": "Connection for handling ISO 8583 financial messages."
+                }
+            ],
             "isHidden": false
         }
     ]
