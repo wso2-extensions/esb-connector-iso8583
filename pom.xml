@@ -20,8 +20,8 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.wso2.carbon.connector</groupId>
-    <artifactId>org.wso2.carbon.connector.iso8583</artifactId>
+    <groupId>org.wso2.integration.connector</groupId>
+    <artifactId>mi-connector-iso8583</artifactId>
     <packaging>jar</packaging>
     <version>1.0.4-SNAPSHOT</version>
     <name>WSO2 Carbon - Mediation Library Connector For ISO8583</name>
@@ -188,6 +188,13 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
@@ -203,7 +210,7 @@
                         <id>email-library</id>
                         <phase>compile</phase>
                         <goals>
-                            <goal>attached</goal>
+                            <goal>single</goal>
                         </goals>
                         <configuration>
                             <finalName>${connector.name}-connector-${version}</finalName>
