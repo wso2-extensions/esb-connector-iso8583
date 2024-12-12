@@ -23,4 +23,5 @@
         <description>wso2 connector library for ISO8583</description>
         <icon>icon/icon-small.gif</icon>
     </component>
+    <displayName>ISO8583</displayName>
 </connector>
