@@ -15,6 +15,34 @@
     ],
     "releases": [
         {
+            "tagName": "v1.0.4",
+            "products": [
+                "MI 4.3.0",
+                "MI 4.2.0",
+                "MI 4.1.0",
+                "MI 4.0.0"
+            ],
+            "operations": [
+                {
+                    "name": "init",
+                    "description": "configure ISO8583 connector.",
+                    "isHidden": false
+                },
+                {
+                    "name": "sendMessage",
+                    "description": "sendMessage (ISO8583 Message) method for ISO8583 Connector.",
+                    "isHidden": false
+                }
+            ],
+            "connections": [
+                {
+                    "name": "iso8583",
+                    "description": "Connection for handling ISO 8583 financial messages."
+                }
+            ],
+            "isHidden": false
+        },
+        {
             "tagName": "org.wso2.carbon.connector.iso8583-1.0.3",
             "products": [
                 "MI 4.3.0",
