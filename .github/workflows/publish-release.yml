@@ -23,10 +23,12 @@ jobs:
         run: |
           sudo rm -rf /opt/maven           # Remove Maven directory
           sudo rm -f /usr/bin/mvn
-      - name: Set up Maven
-        uses: s4u/maven-settings-action@v2
-        with:
-          maven-version: 3.6.3
+      - name: Download Maven 3.6.3
+        run: |
+          curl -fsSL https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz -o maven.tar.gz
+          tar -xzf maven.tar.gz
+          mv apache-maven-3.6.3 $HOME/maven
+          echo "$HOME/maven/bin" >> $GITHUB_PATH
       # - name: Install Maven 3.6.3
       #   run: |
       #     wget https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
