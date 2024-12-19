@@ -19,6 +19,16 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 11
+      - name: Uninstall Maven
+        run: |
+          sudo rm -rf /opt/maven           # Remove Maven directory
+          sudo rm -f /usr/bin/mvn
+      - name: Install Maven 3.6.3
+        run: |
+          wget https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+          tar -xvzf apache-maven-3.6.3-bin.tar.gz
+          sudo mv apache-maven-3.6.3 /opt/maven
+          sudo ln -s /opt/maven/bin/mvn /usr/bin/mvn
       - name: Extract project version
         run: |
           VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" pom.xml | sed 's/-SNAPSHOT$//')
@@ -30,7 +40,7 @@ jobs:
           echo "<settings>
                   <servers>
                     <server>
-                      <id>nexus-releases</id>
+                      <id>releases</id>
                       <username>${{ secrets.NEXUS_USERNAME }}</username>
                       <password>${{ secrets.NEXUS_PASSWORD }}</password>
                     </server>
