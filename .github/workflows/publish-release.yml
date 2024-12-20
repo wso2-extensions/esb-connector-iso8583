@@ -19,6 +19,14 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 11
+      - name: Download Maven 3.6.3
+        run: |
+          sudo rm -rf /opt/maven
+          sudo rm -f /usr/bin/mvn
+          curl -fsSL https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz -o maven.tar.gz
+          tar -xzf maven.tar.gz
+          mv apache-maven-3.6.3 $HOME/maven
+          echo "$HOME/maven/bin" >> $GITHUB_PATH
       - name: Extract project version
         run: |
           VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" pom.xml | sed 's/-SNAPSHOT$//')
