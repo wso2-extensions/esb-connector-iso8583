@@ -34,12 +34,7 @@
                     "isHidden": false
                 }
             ],
-            "connections": [
-                {
-                    "name": "iso8583",
-                    "description": "Connection for handling ISO 8583 financial messages."
-                }
-            ],
+            "connections": [],
             "isHidden": false
         },
         {
@@ -62,12 +57,7 @@
                     "isHidden": false
                 }
             ],
-            "connections": [
-                {
-                    "name": "iso8583",
-                    "description": "Connection for handling ISO 8583 financial messages."
-                }
-            ],
+            "connections": [],
             "isHidden": false
         }
     ]
