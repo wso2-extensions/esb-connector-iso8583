@@ -1,0 +1,31 @@
+{
+    "connectorName": "iso8583",
+    "operationName": "sendMessage",
+    "title": "Send Message",
+    "help": "The sendMessage method for ISO8583 Connector.",
+    "elements": [
+        {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "General",
+                "elements": [
+                    {
+                        "type": "attribute",
+                        "value": {
+                          "name": "configRef",
+                          "displayName": "Connection",
+                          "inputType": "connection",
+                          "allowedConnectionTypes": [
+                            "iso8583"
+                          ],
+                          "defaultType": "connection.iso8583",
+                          "defaultValue": "",
+                          "required": "true",
+                          "helpTip": "Connection to be used"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+  }
