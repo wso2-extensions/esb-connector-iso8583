@@ -20,6 +20,7 @@
     <subComponents>
         <component name="sendMessage">
             <file>sendMessage.xml</file>
+            <displayName>Send Message</displayName>
             <description>sendMessage (ISO8583 Message) method for ISO8583 Connector.
             </description>
         </component>
