@@ -1,0 +1,30 @@
+{
+  "connectorName": "iso8583",
+  "connectionName": "iso8583",
+  "title": "ISO8583 Connection",
+  "help": "The ISO8583 connector allows you to send financial transaction messages that follow the ISO8583 standard through WSO2 EI. It acts as a message producer that facilitates message publishing to financial systems supporting ISO8583 format.",
+  "elements": [
+    {
+      "type": "attribute", 
+      "value": {
+        "name": "serverHost",
+        "displayName": "Server Host",
+        "inputType": "stringOrExpression",
+        "defaultValue": "localhost",
+        "required": "true",
+        "helpTip": "Host address of the server"
+      }
+    },
+    {
+      "type": "attribute",
+      "value": {
+        "name": "serverPort",
+        "displayName": "Server Port",
+        "inputType": "stringOrExpression",
+        "defaultValue": "5010",
+        "required": "true",
+        "helpTip": "Port number of the server"
+      }
+    }
+  ]
+}

@@ -21,6 +21,7 @@
         <component name="init">
             <file>init.xml</file>
             <description>configure ISO8583 connector.</description>
+            <hidden>true</hidden>
         </component>
     </subComponents>
 </component>
